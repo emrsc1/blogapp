@@ -64,6 +64,7 @@ router.get("/blog/create", async function (req, res) {
 });
 router.post("/blog/create",imageUpload.upload.single("resim"), async function (req, res) {
   const baslik = req.body.baslik;
+  const altbaslik=req.body.altbaslik;
   const aciklama = req.body.aciklama;
   const resim = req.file.filename;
   const kategori = req.body.kategori;
@@ -72,8 +73,8 @@ router.post("/blog/create",imageUpload.upload.single("resim"), async function (r
   console.log(req.body);
   try {
     await db.execute(
-      "INSERT INTO blog(baslik,aciklama,resim,anasayfa,onay,categoryid) VALUES (?,?,?,?,?,?)",
-      [baslik, aciklama, resim, anasayfa, onay, kategori]);
+      "INSERT INTO blog(baslik,altbaslik,aciklama,resim,anasayfa,onay,categoryid) VALUES (?,?,?,?,?,?,?)",
+      [baslik,altbaslik, aciklama, resim, anasayfa, onay, kategori]);
       res.redirect("/admin/blogs?action=add");
 
     
@@ -106,6 +107,7 @@ router.get("/blogs/:blogid",async function (req, res) {
 router.post("/blogs/:blogid",imageUpload.upload.single("resim"),async function(req,res){
   const blogid=req.body.blogid;
     const baslik = req.body.baslik;
+    const altbaslik = req.body.altbaslik;
     const aciklama = req.body.aciklama;
     let resim = req.body.resim;
     if(req.file){
@@ -119,8 +121,8 @@ router.post("/blogs/:blogid",imageUpload.upload.single("resim"),async function(r
     const onay = req.body.onay == "on" ? 1 : 0;
     const kategoriid=req.body.kategori;
     try{
-       await db.execute("UPDATE blog SET baslik=?,aciklama=?,resim=?,anasayfa=?,onay=?,categoryid=? where blogid=?",
-       [baslik,aciklama,resim,anasayfa,onay,kategoriid,blogid]);
+       await db.execute("UPDATE blog SET baslik=?,altbaslik=?,aciklama=?,resim=?,anasayfa=?,onay=?,categoryid=? where blogid=?",
+       [baslik,altbaslik,aciklama,resim,anasayfa,onay,kategoriid,blogid]);
        res.redirect("/admin/blogs?action=edit&blogid="+blogid);
        
     }
@@ -130,7 +132,7 @@ router.post("/blogs/:blogid",imageUpload.upload.single("resim"),async function(r
 })
 router.get("/blogs",async function (req, res) {
   try {
-    const [blogs,]=await db.execute("select blogid,baslik,resim from blog");
+    const [blogs,]=await db.execute("select blogid,altbaslik,baslik,resim from blog");
     res.render("admin/blog-list", {
       title: "blog list",
       blogs:blogs,
