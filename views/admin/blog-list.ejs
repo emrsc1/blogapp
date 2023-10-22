@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include("../partials/head") %>
-  </head>
-  <body>
-    <%- include("../partials/nav") %>
+<head>
+    <%- include("../partials/head")  %> 
+</head>
+<body>
+    
+    <%- include("../partials/nav")  %> 
 
     <div class="container mt-3">
-        <div class="row">
-          <div class="col-md-12 mt-3">
-           <% if (action!="undefined" && action=="edit") { %>
-            <div class="alert alert-success">
-             <%= blogid %> İd'li Blog Güncellendi.
+          <div class="row">
+            <div class="col-md-12 mt-3">
+                <% if (action != "undefined" && action=="edit") { %>
+                    <div class="alert alert-success">
+                        <%= blogid %> id numaralı  blog Güncelledi.
+                    </div>
+                <% } %>
+                <% if (action != "undefined" && action=="create") { %>
+                    <div class="alert alert-success">
+                        Blog Eklendi.
+                    </div>
+                <% } %>
+                <% if (action != "undefined" && action=="delete") { %>
+                    <div class="alert alert-success">
+                        Blog Silindi.
+                    </div>
+                <% } %>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">id</th>
+                            <th style="width: 150px;">resim</th>
+                            <th>baslik</th>
+                            <th style="width: 130px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% blogs.forEach(blog => { %>
+                            <tr>
+                                <td>#<%= blog.dataValues.blogid %> </td>
+                                <td>
+                                    <img src="/static/images/<%= blog.dataValues.resim %>" class="img-fluid" alt="">
+                                </td>
+                                <td>
+                                    <%= blog.dataValues.baslik %> 
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" href="/admin/blogs/<%= blog.dataValues.blogid %>">edit</a>
+                                    <a class="btn btn-sm btn-danger" href="/admin/blog/delete/<%= blog.dataValues.blogid %>">delete</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
             </div>
-           <% } %>
-            <% if (action!="undefined" && action=="delete") { %>
-            <div class="alert alert-danger">
-             <%= blogid %> İd'li Blog Silindi.
-            </div>
-           <% } %>
-            <% if (action!="undefined" && action=="add") { %>
-            <div class="alert alert-success">
-             <%= blogid %> İd'li Blog Eklendi.
-            </div>
-           <% } %>
-              <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th style="width: 50px;">id</th>
-                  <th style="width: 150px;">resim</th>
-                  <th>baslik</th>
-                  <th style="width: 130px;"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% blogs.forEach(blog => { %>
-                 <tr>
-                  <td><%= blog.blogid %></td>
-                  <td>
-                    <img src="/static/images/<%= blog.resim %>" class="img-fluid">
-                  </td>
-                  <td>
-                    <%= blog.baslik %>
-                  </td>
-                  <td>
-                    <a class="btn btn-sm btn-primary"href="/admin/blogs/<%= blog.blogid %>">edit</a>
-                    <a class="btn btn-sm btn-danger"href="/admin/blog/delete/<%= blog.blogid %>">delete</a>
-                  </td>
-                 </tr>
-                <% }) %>
-              </tbody>
-              </table>
-            
           </div>
-        </div>
     </div>
-  </body>
+</body>
 </html>
+
+
+
