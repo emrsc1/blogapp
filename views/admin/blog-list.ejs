@@ -12,7 +12,7 @@
             <div class="col-md-12 mt-3">
                 <% if (action != "undefined" && action=="edit") { %>
                     <div class="alert alert-success">
-                        <%= blogid %> id numaralı  blog Güncelledi.
+                        <%= id %> id numaralı  blog Güncelledi.
                     </div>
                 <% } %>
                 <% if (action != "undefined" && action=="create") { %>
@@ -31,13 +31,14 @@
                             <th style="width: 50px;">id</th>
                             <th style="width: 150px;">resim</th>
                             <th>baslik</th>
+                            <th>kategori</th>
                             <th style="width: 130px;"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <% blogs.forEach(blog => { %>
                             <tr>
-                                <td>#<%= blog.dataValues.blogid %> </td>
+                                <td>#<%= blog.dataValues.id %> </td>
                                 <td>
                                     <img src="/static/images/<%= blog.dataValues.resim %>" class="img-fluid" alt="">
                                 </td>
@@ -45,8 +46,11 @@
                                     <%= blog.dataValues.baslik %> 
                                 </td>
                                 <td>
-                                    <a class="btn btn-sm btn-primary" href="/admin/blogs/<%= blog.dataValues.blogid %>">edit</a>
-                                    <a class="btn btn-sm btn-danger" href="/admin/blog/delete/<%= blog.dataValues.blogid %>">delete</a>
+                                    <%= blog.category.name %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" href="/admin/blogs/<%= blog.dataValues.id %>">edit</a>
+                                    <a class="btn btn-sm btn-danger" href="/admin/blog/delete/<%= blog.dataValues.id %>">delete</a>
                                 </td>
                             </tr>
                         <% }) %>

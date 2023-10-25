@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 mt-3">
                 <form method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="blogid" value="<%= blog.blogid %>">
+                    <input type="hidden" name="blogid" value="<%= blog.id %>">
                     <input type="hidden" name="resim" value="<%= blog.resim %>">
                     <div class="row mb-3">
                         <label for="baslik" class="col-sm-2 col-form-label">Başlık</label>
@@ -22,21 +22,19 @@
                     <div class="row mb-3">
                         <label for="altbaslik" class="col-sm-2 col-form-label">altbaslik</label>
                         <div class="col-sm-8">
-                            <textarea name="altbaslik" class="form-control" rows="5">
-                                <%= blog.altbaslik %>
-                            </textarea>
+                            <textarea name="altbaslik" class="form-control" rows="5"><%= blog.altbaslik %></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="aciklama" class="col-sm-2 col-form-label">Açıklama</label>
                         <div class="col-sm-8">
-                            <textarea id="editor" name="aciklama" class="form-control" rows="10"><%= blog.aciklama %> </textarea>
+                            <textarea id="editor" name="aciklama" class="form-control" rows="10"><%= blog.aciklama %></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="resim" class="col-sm-2 col-form-label">Resim</label>
                         <div class="col-sm-8">
-                            <img src="/static/images/<%= blog.resim %> " alt="" width="120">
+                            <img src="/static/images/<%= blog.resim %>" alt="" width="120">
                             <input type="file" class="form-control" id="resim" name="resim">
                         </div>
                     </div>
@@ -46,11 +44,11 @@
                             <select name="kategori" id="kategori" class="form-select">
                                 <option value="-1" >Seçiniz</option>
                                 <% categories.forEach(category => { %>
-                                    <option value="<%= category.dataValues.categoryid %>"><%= category.dataValues.name %> </option>
+                                    <option value="<%= category.dataValues.id %>"><%= category.dataValues.name %></option>
                                 <% }) %>
                             </select>
                             <script>
-                                document.querySelector("#kategori").value = "<%= blog.categoryid%>";
+                                document.querySelector("#kategori").value = "<%= blog.id%>";
                             </script>
                         </div>
                     </div>
