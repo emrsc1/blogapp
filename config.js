@@ -4,8 +4,7 @@ const config = {
         user: "root",
         port:3310,
         password: "Emremre5234",
-        database: "blogdb",
-        
+        database: "blogdb"
     }
 }
 

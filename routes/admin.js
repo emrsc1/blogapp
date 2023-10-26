@@ -1,11 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
 
-const db = require("../data/db");
 const imageUpload = require("../helpers/image-upload");
 
-const adminController=require("../controllers/admin");
+const adminController = require("../controllers/admin");
 
 router.get("/blog/delete/:blogid", adminController.get_blog_delete);
 
@@ -16,6 +14,8 @@ router.get("/category/delete/:categoryid", adminController.get_category_delete);
 router.post("/category/delete/:categoryid", adminController.post_category_delete);
 
 router.get("/blog/create", adminController.get_blog_create);
+
+router.post("/categories/remove", adminController.get_category_remove);
 
 router.post("/blog/create", imageUpload.upload.single("resim"), adminController.post_blog_create);
 
@@ -31,8 +31,8 @@ router.get("/categories/:categoryid", adminController.get_category_edit);
 
 router.post("/categories/:categoryid", adminController.post_category_edit);
 
-router.get("/blogs", adminController.blog_list);
+router.get("/blogs", adminController.get_blogs);
 
-router.get("/categories",adminController.category_list);
+router.get("/categories", adminController.get_categories);
 
 module.exports = router;

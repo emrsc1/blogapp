@@ -12,7 +12,7 @@
             <div class="col-md-12 mt-3">
                 <% if (action != "undefined" && action=="edit") { %>
                     <div class="alert alert-success">
-                        <%= id %> id numaralı  blog Güncelledi.
+                        <%= blogid %> id numaralı  blog Güncelledi.
                     </div>
                 <% } %>
                 <% if (action != "undefined" && action=="create") { %>
@@ -46,7 +46,9 @@
                                     <%= blog.dataValues.baslik %> 
                                 </td>
                                 <td>
-                                    <%= blog.category.name %>
+                                    <% blog.categories.forEach(category => { %>
+                                        <p> <%= category.name %> </p>
+                                    <% }) %>
                                 </td>
                                 <td>
                                     <a class="btn btn-sm btn-primary" href="/admin/blogs/<%= blog.dataValues.id %>">edit</a>

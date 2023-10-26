@@ -5,7 +5,10 @@ const Sequelize = require("sequelize");
 const sequelize = new Sequelize(config.db.database, config.db.user, config.db.password, {
     dialect: "mysql",
     host: config.db.host,
-    port:config.db.port
+    port:config.db.port,
+    define: {
+        timestamps: false
+    }
 });
 
 async function connect() {
