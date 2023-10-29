@@ -1,41 +1,37 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../data/db");
-const slugify=require("../helpers/slugfield");
-const Blog = sequelize.define(
-  "blog",
-  {
+
+const Blog = sequelize.define("blog", {
     baslik: {
-      type: DataTypes.STRING,
-      allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false
     },
     url: {
-      type: DataTypes.STRING,
-      allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false
     },
     altbaslik: {
-      type: DataTypes.STRING,
-      allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false
     },
     aciklama: {
-      type: DataTypes.TEXT,
-      allowNull: true,
+        type: DataTypes.TEXT,
+        allowNull: true
     },
     resim: {
-      type: DataTypes.STRING,
-      allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false
     },
     anasayfa: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
+        type: DataTypes.BOOLEAN,
+        allowNull: false
     },
     onay: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    }
+}, {
+    timestamps: true
+});
 
 module.exports = Blog;

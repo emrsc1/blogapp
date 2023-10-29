@@ -2,6 +2,7 @@ const Blog = require("../models/blog");
 const Category = require("../models/category");
 const { Op } = require("sequelize");
 const sequelize = require("../data/db");
+const slugField = require("../helpers/slugfield");
 
 const fs = require("fs");
 
@@ -12,9 +13,9 @@ exports.get_blog_delete = async function(req, res){
         const blog = await Blog.findByPk(blogid);
 
         if(blog) {
-            return res.render("admin/blog-delete", {
+            return res.render("admin/blog-delete", {//
                 title: "delete blog",
-                blog: blog
+                blog: blog,
             });
         }
         res.redirect("/admin/blogs");
@@ -30,7 +31,7 @@ exports.post_blog_delete = async function(req, res) {
         const blog = await Blog.findByPk(blogid);
         if(blog) {
             await blog.destroy();
-            return res.redirect("/admin/blogs?action=delete");
+            return res.redirect("/admin/blogs?action=delete");//blog silindikten sonra admin/blogs?action=delete sayfasına yönlendirir
         }
         res.redirect("/admin/blogs");
     }
@@ -43,11 +44,11 @@ exports.get_category_delete = async function(req, res){
     const categoryid = req.params.categoryid;
 
     try {
-        const category = await Category.findByPk(categoryid);
+        const category = await Category.findByPk(categoryid);//categoryid ye göre kategori bulur
 
         res.render("admin/category-delete", {
             title: "delete category",
-            category: category
+            category: category //bulunan kategoriyi category değişkenine atar
         });
     }
     catch(err) {
@@ -56,10 +57,10 @@ exports.get_category_delete = async function(req, res){
 }
 
 exports.post_category_delete = async function(req, res) {
-    const categoryid = req.body.categoryid;
+    const categoryid = req.body.categoryid; //categoryid yi alır
     try {
         await Category.destroy({
-            where: {
+            where: { //categoryid ye göre kategoriyi siler
                 id: categoryid
             }
         });
@@ -72,7 +73,7 @@ exports.post_category_delete = async function(req, res) {
 
 exports.get_blog_create = async function(req, res) {
     try {
-        const categories = await Category.findAll();
+        const categories = await Category.findAll(); //tüm kategorileri bulur
 
         res.render("admin/blog-create", {
             title: "add blog",
@@ -91,17 +92,16 @@ exports.post_blog_create = async function(req, res) {
     const resim = req.file.filename;
     const anasayfa = req.body.anasayfa == "on" ? 1:0;
     const onay = req.body.onay == "on"? 1:0;
-    const kategori = req.body.kategori;
 
     try {
-        await Blog.create({
+        await Blog.create({ //create ile veritabanına kayıt ekleriz
             baslik: baslik,
+            url: slugField(baslik),
             altbaslik: altbaslik,
             aciklama: aciklama,
             resim: resim,
             anasayfa: anasayfa,
-            onay: onay,
-            categoryId: kategori
+            onay: onay
         });
         res.redirect("/admin/blogs?action=create");
     }
@@ -110,7 +110,7 @@ exports.post_blog_create = async function(req, res) {
     }
 }
 
-exports.get_category_create = async function(req, res) {
+exports.get_category_create = async function(req, res) { //yeni kategori oluşturmak için
     try {
         res.render("admin/category-create", {
             title: "add category"
@@ -148,7 +148,7 @@ exports.get_blog_edit = async function(req, res) {
         const categories = await Category.findAll();
 
         if(blog) {
-            return res.render("admin/blog-edit", {
+            return res.render("admin/blog-edit", { //blogu düzenlemek için
                 title: blog.dataValues.baslik,
                 blog: blog.dataValues,
                 categories: categories
@@ -168,13 +168,14 @@ exports.post_blog_edit = async function(req, res) {
     const altbaslik = req.body.altbaslik;
     const aciklama = req.body.aciklama;
     const kategoriIds = req.body.categories;
+    const url = req.body.url;
 
     let resim = req.body.resim;
 
-    if(req.file) {
+    if(req.file) { //resim değiştirilmişse
         resim = req.file.filename;
 
-        fs.unlink("./public/images/" + req.body.resim, err => {
+        fs.unlink("./public/images/" + req.body.resim, err => { //eski resmi siler
             console.log(err);
         });
     }
@@ -199,7 +200,8 @@ exports.post_blog_edit = async function(req, res) {
             blog.resim = resim;
             blog.anasayfa = anasayfa;
             blog.onay = onay;
-
+            blog.url = url;
+            
             if(kategoriIds == undefined) {
                 await blog.removeCategories(blog.categories);
             } else {

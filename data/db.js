@@ -8,7 +8,8 @@ const sequelize = new Sequelize(config.db.database, config.db.user, config.db.pa
     port:config.db.port,
     define: {
         timestamps: false
-    }
+    },
+    storage: "./session.mysql" //session bilgilerini saklamak için
 });
 
 async function connect() {

@@ -12,6 +12,7 @@
             <div class="col-md-12 mt-3">
                 <div class="card card-body">
                     <form method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>" id="">
                         <input type="hidden" name="categoryid" value="<%= category.id %>">
                         <div class="row mb-3">
                             <label for="baslik" class="col-sm-2 col-form-label">Name</label>

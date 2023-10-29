@@ -1,22 +1,44 @@
 <nav class="navbar navbar-dark bg-primary navbar-expand-lg">
-    <div class="container">
-        <a href="/" class="navbar-brand">Blogapp</a>
-        <ul class="navbar-nav me-auto">
+  <div class="container">
+    <a href="/" class="navbar-brand">Blogapp</a>
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item">
+        <a href="/blogs" class="nav-link">Blog Listesi</a>
+      </li>
+      <% if (typeof isAuth !== 'undefined' && isAuth) { %>
+      <li class="nav-item">
+        <a href="/admin/blogs" class="nav-link">Admin Blogs </a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/categories" class="nav-link">Admin Categories </a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/blog/create" class="nav-link">Add Blog </a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/category/create" class="nav-link">Add Category </a>
+      </li>
+      <% } %>
+    </ul>
+    <ul class="navbar-nav me-auto">
+        <% if (typeof isAuth !== 'undefined' &&isAuth) { %>
+          <li class="nav-item">
+        <a href="/account" class="nav-link"><%= fullname %></a>
+      </li>
+         <li class="nav-item">
+        <a href="/account/logout" class="nav-link">Çıkış Yap</a>
+      </li>
+        <% }else { %>
+       
+
             <li class="nav-item">
-                <a href="/blogs" class="nav-link">Blog Listesi</a>
+              <a href="/account/login" class="nav-link">Giriş Yap</a>
             </li>
             <li class="nav-item">
-                <a href="/admin/blogs" class="nav-link">Admin Blogs </a>
+              <a href="/account/register" class="nav-link">Üye Ol</a>
             </li>
-            <li class="nav-item">
-                <a href="/admin/categories" class="nav-link">Admin Categories </a>
-            </li>
-            <li class="nav-item">
-                <a href="/admin/blog/create" class="nav-link">Add Blog </a>
-            </li>
-            <li class="nav-item">
-                <a href="/admin/category/create" class="nav-link">Add Category </a>
-            </li>
-        </ul>
-    </div>
+         <% } %>
+      
+    </ul>
+  </div>
 </nav>

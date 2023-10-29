@@ -9,6 +9,7 @@
 
     <div class="container mt-3">
         <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" id="">
             <div class="row my-5 gx-5">
 
                 <div class="col-md-10">
@@ -25,6 +26,12 @@
                             <label for="altbaslik" class="col-sm-1 col-form-label">altbaslik</label>
                             <div class="col-sm-11">
                                 <textarea name="altbaslik" class="form-control" rows="5"><%= blog.altbaslik %></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="altbaslik" class="col-sm-1 col-form-label">url</label>
+                            <div class="col-sm-11">
+                                <input type="text" class="form-control" id="url" name="url" value="<%= blog.url %>">
                             </div>
                         </div>
                         <div class="row mb-3">
